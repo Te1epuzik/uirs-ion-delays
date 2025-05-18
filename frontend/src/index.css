@@ -50,14 +50,16 @@ input {
   font-weight: 500;
   font-family: inherit;
   background-color: #1a1a1a;
-  cursor: pointer;
   transition: border-color 0.25s;
+}
+button {
+	cursor: pointer;
 }
 button:hover,
 input:hover {
   border-color: #646cff;
 }
-button:hover,
+button:focus,
 input:focus,
 button:focus-visible,
 input:focus-visible {

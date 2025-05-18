@@ -23,12 +23,12 @@ export const Chart = ({ data }: TProps) => {
     klobuchar: number;
   }[] = [];
 
-  data.Epoch.forEach((item, index) => {
+  data.epoch.forEach((item, index) => {
     chartData.push({
       name: item,
-      exactDelay: data.ExactDelay[index],
-      forecastDelay: data.ForecastDelay[index],
-      klobuchar: data.Klobuchar[index],
+      exactDelay: data.exactDelay[index],
+      forecastDelay: data.forecastDelay[index],
+      klobuchar: data.klobuchar[index],
     });
   });
   return (
@@ -44,7 +44,7 @@ export const Chart = ({ data }: TProps) => {
               position: "insideLeft",
             }}
           />
-          <Tooltip contentStyle={{ backgroundColor: isDark ? "#4a4a4a" : "#ffffff" }} />
+          <Tooltip contentStyle={{ color: isDark ? "#ffffff" : "#213547", backgroundColor: isDark ? "#242424" : "#ffffff" }} />
           <Legend />
           <Line
             type="monotone"

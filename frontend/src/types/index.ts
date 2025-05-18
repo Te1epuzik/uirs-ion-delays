@@ -1,6 +1,6 @@
 export type TTableDto = {
-	Epoch: string[];
-	ExactDelay: number[];
-	ForecastDelay: number[];
-	Klobuchar: number[];
+	epoch: string[];
+	exactDelay: number[];
+	forecastDelay: number[];
+	klobuchar: number[];
 }

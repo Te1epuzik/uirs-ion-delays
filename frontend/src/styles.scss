@@ -22,7 +22,7 @@
 	}
 
 	&__button {
-		margin-left: 20px;
+		margin-left: 10px;
 	}
 
   .table {
@@ -89,6 +89,7 @@
 	}
 
 	.chart-title {
+		font-weight: 400;
 		margin: 5px;
 		width: 100%;
 		text-align: center;
@@ -108,11 +109,29 @@
 
 	.developers {
 		position: absolute;
+		top: 0;
 		right: 5px;
 		font-size: 14px;
 		margin-left: 10px;
 		display: flex;
 		flex-direction: column;
 		width: fit-content;
+	}
+
+	.loader {
+		font-size: 20px;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+
+	.error {
+		color: yellow;
+		font-size: 20px;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
 	}
 }

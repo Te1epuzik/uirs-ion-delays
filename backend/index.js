@@ -3,18 +3,7 @@ const { calcKlobuchar } = require("./calcKlobuchar");
 const express = require("express");
 const fs = require("fs");
 const path = require("path");
-
-const CITY_CHITA = {
-  name: "Чита",
-  lat: 52.05075711868686,
-  lon: 113.48280154660213,
-};
-
-const CITY_SOLICUMSK = {
-  name: "Соликамск",
-  lat: 59.671577178783586,
-  lon: 56.752400699192386,
-};
+const cors = require("cors");
 
 const ELEVATION = 90;
 const AZIMUTH = 0;
@@ -22,48 +11,21 @@ const AZIMUTH = 0;
 const app = express();
 const port = 3000;
 
-let alpha;
-let beta;
+app.use(cors());
+app.use(express.json());
 
-getIonCorrections(path.join(__dirname, "./data/brdc0010.18n")).then((data) => {
-  alpha = data[0];
-  beta = data[1];
-});
 
-getIonex(
-  path.join(__dirname, "./data/igrg0010.18i"),
-  CITY_SOLICUMSK.lat,
-  CITY_SOLICUMSK.lon
-).then((data) => {
-  const values = [];
-  for (const isoDate in data) {
-    const delay = data[isoDate];
+app.post("/data", async (req, res) => {
+	const { lat, lon } = req.body;
+  const epoch = await getIonex(path.join(__dirname, "./data/igrg0010.18i"), lat, lon);
+  const exactDelay = [];
+  const forecastDelay = [];
+  const klobuchar = [];
 
-    const dt = new Date(isoDate);
+	console.log(epoch);
 
-    const klobuchar = calcKlobuchar(CITY_SOLICUMSK.lat, CITY_SOLICUMSK.lon, {
-      elev: ELEVATION,
-      azim: AZIMUTH,
-      alpha: alpha,
-      beta: beta,
-      time: [
-        dt.getUTCFullYear(),
-        dt.getUTCMonth() + 1,
-        dt.getUTCDate(),
-        dt.getUTCHours(),
-        dt.getUTCMinutes(),
-        dt.getUTCSeconds(),
-      ],
-    });
+	const [alpha, beta] = await getIonCorrections(path.join(__dirname, "./data/brdc0010.18n"))
 
-    values.push(klobuchar);
-  }
-  console.log(data);
-  console.log(values);
-});
-
-app.post("/data", (req, res) => {
-  const { name, lat, lon } = req.body;
   getIonex(path.join(__dirname, "./data/igrg0010.18i"), lat, lon).then(
     (data) => {
       const values = [];
@@ -72,9 +34,9 @@ app.post("/data", (req, res) => {
 
         const dt = new Date(isoDate);
 
-        const klobuchar = calcKlobuchar(
-          CITY_SOLICUMSK.lat,
-          CITY_SOLICUMSK.lon,
+        const newKlobuchar = calcKlobuchar(
+          lat,
+          lon,
           {
             elev: ELEVATION,
             azim: AZIMUTH,
@@ -91,10 +53,19 @@ app.post("/data", (req, res) => {
           }
         );
 
-        values.push(klobuchar);
+        klobuchar.push(newKlobuchar);
       }
-      console.log(data);
-      console.log(values);
+
+      res.json({
+        epoch: Object.keys(epoch).map((item) => {
+					const [date, time] = item.split("T");
+					
+					return date.split("-").reverse().join(".") + " " + time
+				}),
+        exactDelay,
+        forecastDelay,
+        klobuchar,
+      });
     }
   );
 });

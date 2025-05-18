@@ -1,1 +1,1 @@
-export * from "./getChart.api";
+export * from "./api";

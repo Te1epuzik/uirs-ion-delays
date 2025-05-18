@@ -18,7 +18,7 @@ export const Table = ({ data }: TProps) => {
       </header>
       <div className="table__body">
         <div className="table__body-col table__Epoch">
-          {data.Epoch.map((item, index) => (
+          {data.epoch.map((item, index) => (
             <div
               className="table__body-row"
               key={index + Date.now().toString()}
@@ -28,7 +28,7 @@ export const Table = ({ data }: TProps) => {
           ))}
         </div>
         <div className="table__body-col table__ExactDelay">
-          {data.ExactDelay.map((item, index) => (
+          {data.exactDelay.map((item, index) => (
             <div
               className="table__body-row"
               key={index + Date.now().toString()}
@@ -38,7 +38,7 @@ export const Table = ({ data }: TProps) => {
           ))}
         </div>
         <div className="table__body-col table__ForecastDelay">
-          {data.ForecastDelay.map((item, index) => (
+          {data.forecastDelay.map((item, index) => (
             <div
               className="table__body-row"
               key={index + Date.now().toString()}
@@ -48,7 +48,7 @@ export const Table = ({ data }: TProps) => {
           ))}
         </div>
         <div className="table__body-col table__Klobuchar">
-          {data.Klobuchar.map((item, index) => (
+          {data.klobuchar.map((item, index) => (
             <div
               className="table__body-row"
               key={index + Date.now().toString()}
