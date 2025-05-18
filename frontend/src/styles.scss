@@ -1,0 +1,118 @@
+.main {
+	position: relative;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-start;
+  max-width: 900px;
+	box-sizing: border-box;
+  min-height: 100vh;
+	padding-top: 10px;
+  margin: 0 auto;
+  border-left: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
+
+	&__city-label {
+		display: block;
+		margin-left: 10px;
+		font-size: 24px;
+	}
+
+	&__city-input {
+		margin-left: 10px;
+	}
+
+	&__button {
+		margin-left: 20px;
+	}
+
+  .table {
+		margin-top: 10px;
+		margin-bottom: 10px;
+    &__header {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border-top: 1px solid var(--border-color);
+    }
+
+    &__title {
+      margin: 0;
+    }
+
+    &__legend {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+
+      &-item {
+        text-align: center;
+      }
+
+      &-item:not(:last-child) {
+        border-right: 1px solid var(--border-color);
+      }
+    }
+
+    &__body {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+
+      &-col {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-bottom: 1px solid var(--border-color);
+
+				&:not(:last-child) {
+					border-right: 1px solid var(--border-color);
+				}
+      }
+
+			&-row {
+				width: 100%;
+				text-align: center;
+				&:not(:last-child) {
+					border-bottom: 1px dashed var(--border-color);
+				}
+			}
+
+    }
+  }
+
+	.chart {
+		width: 100%;
+	}
+
+	.chart-title {
+		margin: 5px;
+		width: 100%;
+		text-align: center;
+	}
+
+	.chart-wrapper {
+		color: black;
+	}
+
+	.coords {
+		font-size: 14px;
+		margin-left: 10px;
+		display: flex;
+		flex-direction: column;
+		width: fit-content;
+	}
+
+	.developers {
+		position: absolute;
+		right: 5px;
+		font-size: 14px;
+		margin-left: 10px;
+		display: flex;
+		flex-direction: column;
+		width: fit-content;
+	}
+}
